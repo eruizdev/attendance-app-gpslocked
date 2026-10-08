@@ -1,0 +1,29 @@
+# Despliegue en Render (plan gratuito). Los valores con sync: false se escriben en el panel de Render.
+services:
+  - type: web
+    name: asistencia
+    runtime: docker
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: DB_SSL
+        value: "true"
+      - key: ZONA_HORARIA
+        value: America/Bogota
+      - key: GPS_PRECISION_MAX_METROS
+        value: "500"
+      - key: CONTACTO_DATOS
+        value: dmarinsem@tic.edu.co
+      - key: DATABASE_URL
+        sync: false
+      - key: CLAVE_CIFRADO
+        sync: false
+      - key: ADMIN_USUARIO
+        value: ADMIN
+      - key: ADMIN_CLAVE
+        sync: false
+      - key: VPN_API_KEY
+        sync: false

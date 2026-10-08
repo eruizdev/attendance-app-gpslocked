@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>Registro de asistencia | Secretaría de Educación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="contenedor">
+      <p class="entidad">Secretaría de Educación</p>
+      <p class="subentidad">Registro de asistencia a eventos</p>
+    </div>
+  </header>
+
+  <main class="contenedor contenido">
+    <section class="evento">
+      <p class="evento-etiqueta" id="eventoEtiqueta" hidden>Evento</p>
+      <h1 id="eventoNombre">Cargando evento</h1>
+      <p class="evento-estado" id="eventoEstado"></p>
+    </section>
+
+    <section id="pasoEvento" class="tarjeta" hidden>
+      <h2>Seleccione el evento</h2>
+      <label for="selectEvento">Evento al que asiste</label>
+      <select id="selectEvento"></select>
+      <button id="btnEvento" class="boton">Continuar</button>
+    </section>
+
+    <section id="pasoUbicacion" class="tarjeta">
+      <div class="pasos" aria-label="Progreso"><span class="activo">Paso 1 de 2</span>Ubicación</div>
+      <h2>Permita el acceso a su ubicación</h2>
+      <p>Para registrar la asistencia es obligatorio compartir la ubicación. Al enviar se guardan, de forma cifrada, su ubicación exacta, la dirección IP y el tipo de dispositivo.</p>
+      <button id="btnUbicacion" class="boton">Permitir ubicación</button>
+      <p class="estado-gps" id="estadoGps" hidden>Buscando su ubicación...</p>
+      <div id="ayudaUbicacion" class="alerta" hidden></div>
+    </section>
+
+    <section id="pasoCedula" class="tarjeta" hidden>
+      <div class="pasos"><span class="activo">Paso 2 de 2</span>Datos de asistencia</div>
+      <p class="ubicacion-ok" id="ubicacionOk">Ubicación activa</p>
+
+      <div class="legal">
+        <h2>Autorización para el tratamiento de datos personales</h2>
+        <p>La Secretaría de Educación, como responsable del tratamiento, recolecta y trata sus datos personales con fines
+          netamente académicos y para verificar su asistencia al evento, en cumplimiento de la
+          <strong>Ley 1581 de 2012 de Protección de Datos Personales de Colombia</strong> y sus decretos reglamentarios.</p>
+        <p>Se recolectan los datos que usted diligencia en este formulario y, de forma automática al enviarlo, su ubicación
+          geográfica, su dirección IP y datos de su dispositivo y navegador. Estos últimos se usan solo para verificar que
+          el registro de asistencia es auténtico.</p>
+        <p>La pregunta sobre población recolecta datos sensibles (artículo 5 de la Ley 1581 de 2012), que se tratan solo con
+          fines estadísticos y de atención diferencial.</p>
+        <p>Los datos se almacenan cifrados y solo accede personal autorizado. Usted puede ejercer sus derechos de acceso,
+          conocimiento, rectificación, actualización o supresión, y revocar esta autorización, escribiendo al correo
+          <strong id="contactoDatos"></strong>.</p>
+      </div>
+
+      <form id="form" novalidate>
+        <label for="cedula">1. Documento de identidad (sin letras, comas ni puntos)</label>
+        <input id="cedula" name="cedula" inputmode="numeric" autocomplete="off" pattern="[0-9]*"
+               minlength="6" maxlength="13" required placeholder="Escriba su respuesta">
+
+        <label for="nombres">2. Nombres y apellidos completos</label>
+        <input id="nombres" name="nombres" autocomplete="name" maxlength="120" required placeholder="Escriba su respuesta">
+
+        <label for="institucion">3. Institución educativa a la que pertenece</label>
+        <select id="institucion" name="institucion" required></select>
+        <input id="institucionTexto" name="institucionTexto" maxlength="150" placeholder="Escriba el nombre de su institución" hidden>
+
+        <fieldset><legend>4. Población</legend><div class="opciones" id="opPoblacion"></div></fieldset>
+        <fieldset><legend>5. Rango de edad</legend><div class="opciones" id="opRangoEdad"></div></fieldset>
+        <fieldset><legend>6. Tipo de vinculación</legend><div class="opciones" id="opVinculacion"></div></fieldset>
+
+        <label for="celular">7. Número de celular</label>
+        <input id="celular" name="celular" type="tel" inputmode="numeric" autocomplete="tel-national"
+               maxlength="10" required placeholder="10 dígitos, sin espacios">
+
+        <label for="correo">8. Correo electrónico</label>
+        <input id="correo" name="correo" type="email" inputmode="email" autocomplete="email"
+               maxlength="254" required placeholder="Escriba su respuesta">
+
+        <fieldset><legend>9. Nivel de escolaridad</legend><div class="opciones" id="opEscolaridad"></div></fieldset>
+
+        <p class="aceptacion">Al enviar este formulario usted acepta el tratamiento de sus datos personales, según la
+          autorización descrita arriba y la Ley 1581 de 2012.</p>
+        <button type="submit" id="btnEnviar" class="boton">Enviar</button>
+      </form>
+      <div id="error" class="alerta" role="alert" hidden></div>
+    </section>
+
+    <section id="pasoListo" class="tarjeta exito" hidden>
+      <h2>Asistencia registrada</h2>
+      <p id="detalleListo"></p>
+      <dl class="comprobante">
+        <dt>Número de comprobante</dt>
+        <dd id="comprobante"></dd>
+        <dt>Ubicación registrada</dt>
+        <dd id="coordenadas" class="coordenadas"></dd>
+      </dl>
+      <p class="nota">Puede tomar una captura de pantalla como constancia.</p>
+    </section>
+
+    <section id="pasoNoDisponible" class="tarjeta" hidden>
+      <h2>Registro no disponible</h2>
+      <p id="mensajeNoDisponible"></p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>Secretaría de Educación</p>
+      <p>Tratamiento de datos personales conforme a la Ley 1581 de 2012.</p>
+    </div>
+  </footer>
+  <script src="/app.js"></script>
+</body>
+</html>

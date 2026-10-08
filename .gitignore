@@ -1,0 +1,20 @@
+# Claves y configuración
+.env
+.env.example
+.env.*
+
+# Documentación de seguridad y descifrado
+DATOS-CIFRADOS.md
+
+# Datos y copias de seguridad
+*.sql
+!db/schema.sql
+*.csv
+*.dump
+copia*
+*.zip
+cambiar-claves.sql
+
+# Dependencias y registros
+node_modules/
+*.log

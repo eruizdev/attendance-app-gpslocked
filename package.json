@@ -1,0 +1,21 @@
+{
+  "name": "asistencia-evento",
+  "version": "1.0.0",
+  "description": "Registro de asistencia por cédula con geolocalización obligatoria, IP y dispositivo. Monolito Node.js + PostgreSQL.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "db:init": "node src/init-db.js",
+    "genkeys": "node src/genkeys.js",
+    "crear-base": "node src/crear-base.js",
+    "descifrar": "node src/descifrar.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "pg": "^8.13.1",
+    "ua-parser-js": "^1.0.39"
+  }
+}
